@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Timetable Generator by Afshan</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1><i class="fas fa-calendar-alt"></i> Advanced Timetable Generator By Afshan</h1>
+                <p>Manage classes, teachers, and schedules with ease</p>
+            </div>
+            <div class="header-stats">
+                <div class="stat-item">
+                    <span class="stat-number" id="classCount">0</span>
+                    <span class="stat-label">Classes</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" id="teacherCount">0</span>
+                    <span class="stat-label">Teachers</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" id="roomCount">0</span>
+                    <span class="stat-label">Rooms</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation Tabs -->
+        <nav class="nav-tabs">
+            <button class="nav-btn active" data-tab="add-class">
+                <i class="fas fa-plus"></i> Add Class
+            </button>
+            <button class="nav-btn" data-tab="add-teacher">
+                <i class="fas fa-chalkboard-user"></i> Manage Teachers
+            </button>
+            <button class="nav-btn" data-tab="timetable-view">
+                <i class="fas fa-table"></i> Weekly Schedule
+            </button>
+            <button class="nav-btn" data-tab="analytics">
+                <i class="fas fa-chart-bar"></i> Analytics
+            </button>
+        </nav>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Tab 1: Add Class -->
+            <div class="tab-content active" id="add-class">
+                <section class="input-section">
+                    <h2><i class="fas fa-book"></i> Add New Class</h2>
+                    <div class="input-group">
+                        <div class="form-row">
+                            <div class="form-field">
+                                <label>Subject Name</label>
+                                <input 
+                                    type="text" 
+                                    id="subjectInput" 
+                                    placeholder="e.g., Mathematics, English" 
+                                    class="input-field"
+                                >
+                            </div>
+                            <div class="form-field">
+                                <label>Teacher</label>
+                                <select id="teacherSelect" class="input-field">
+                                    <option value="">Select Teacher</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-field">
+                                <label>Day</label>
+                                <select id="daySelect" class="input-field">
+                                    <option value="">Select Day</option>
+                                    <option value="Monday">Monday</option>
+                                    <option value="Tuesday">Tuesday</option>
+                                    <option value="Wednesday">Wednesday</option>
+                                    <option value="Thursday">Thursday</option>
+                                    <option value="Friday">Friday</option>
+                                    <option value="Saturday">Saturday</option>
+                                </select>
+                            </div>
+                            <div class="form-field">
+                                <label>Time</label>
+                                <select id="timeSelect" class="input-field">
+                                    <option value="">Select Time</option>
+                                    <option value="8:00 AM">8:00 AM</option>
+                                    <option value="9:00 AM">9:00 AM</option>
+                                    <option value="10:00 AM">10:00 AM</option>
+                                    <option value="11:00 AM">11:00 AM</option>
+                                    <option value="12:00 PM">12:00 PM</option>
+                                    <option value="1:00 PM">1:00 PM</option>
+                                    <option value="2:00 PM">2:00 PM</option>
+                                    <option value="3:00 PM">3:00 PM</option>
+                                    <option value="4:00 PM">4:00 PM</option>
+                                </select>
+                            </div>
+                            <div class="form-field">
+                                <label>Room</label>
+                                <select id="roomSelect" class="input-field">
+                                    <option value="">Select Room</option>
+                                    <option value="Room 101">Room 101</option>
+                                    <option value="Room 102">Room 102</option>
+                                    <option value="Room 103">Room 103</option>
+                                    <option value="Room 104">Room 104</option>
+                                    <option value="Lab 105">Lab 105</option>
+                                    <option value="Auditorium">Auditorium</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-field">
+                                <label>Duration (minutes)</label>
+                                <input 
+                                    type="number" 
+                                    id="durationInput" 
+                                    placeholder="e.g., 60" 
+                                    min="30"
+                                    max="240"
+                                    value="60"
+                                    class="input-field"
+                                >
+                            </div>
+                            <div class="form-field">
+                                <label>Color Tag</label>
+                                <input 
+                                    type="color" 
+                                    id="colorInput" 
+                                    class="input-field color-input"
+                                    value="#667eea"
+                                >
+                            </div>
+                        </div>
+                        <button id="addBtn" class="btn-add"><i class="fas fa-plus"></i> Add Class</button>
+                    </div>
+                </section>
+
+                <!-- Classes List -->
+                <section class="classes-section">
+                    <h2><i class="fas fa-list"></i> Added Classes</h2>
+                    <div id="classList" class="classes-grid">
+                        <p class="empty-message">No classes added yet. Add your first class!</p>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Tab 2: Add Teacher -->
+            <div class="tab-content" id="add-teacher">
+                <section class="teacher-section">
+                    <h2><i class="fas fa-chalkboard-user"></i> Manage Teachers</h2>
+                    <div class="teacher-input-group">
+                        <div class="form-row">
+                            <div class="form-field">
+                                <label>Teacher Name</label>
+                                <input 
+                                    type="text" 
+                                    id="teacherNameInput" 
+                                    placeholder="e.g., Dr. John Smith" 
+                                    class="input-field"
+                                >
+                            </div>
+                            <div class="form-field">
+                                <label>Email</label>
+                                <input 
+                                    type="email" 
+                                    id="teacherEmailInput" 
+                                    placeholder="teacher@example.com" 
+                                    class="input-field"
+                                >
+                            </div>
+                            <div class="form-field">
+                                <label>Phone</label>
+                                <input 
+                                    type="tel" 
+                                    id="teacherPhoneInput" 
+                                    placeholder="123-456-7890" 
+                                    class="input-field"
+                                >
+                            </div>
+                            <div class="form-field">
+                                <label>Department</label>
+                                <input 
+                                    type="text" 
+                                    id="teacherDeptInput" 
+                                    placeholder="e.g., Science" 
+                                    class="input-field"
+                                >
+                            </div>
+                        </div>
+                        <button id="addTeacherBtn" class="btn-add"><i class="fas fa-user-plus"></i> Add Teacher</button>
+                    </div>
+
+                    <!-- Teachers List -->
+                    <div id="teachersList" class="teachers-grid">
+                        <p class="empty-message">No teachers added yet.</p>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Tab 3: Weekly Schedule -->
+            <div class="tab-content" id="timetable-view">
+                <section class="timetable-section">
+                    <div class="timetable-controls">
+                        <h2><i class="fas fa-calendar-week"></i> Weekly Schedule</h2>
+                        <div class="control-buttons">
+                            <button id="generateBtn" class="btn-primary"><i class="fas fa-magic"></i> Auto-Generate</button>
+                            <button id="downloadBtn" class="btn-secondary"><i class="fas fa-download"></i> Download PDF</button>
+                            <button id="printBtn" class="btn-secondary"><i class="fas fa-print"></i> Print</button>
+                        </div>
+                    </div>
+                    
+                    <div id="timetableContainer" class="timetable-container">
+                        <p class="empty-message">Add classes to view the schedule</p>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Tab 4: Analytics -->
+            <div class="tab-content" id="analytics">
+                <section class="analytics-section">
+                    <h2><i class="fas fa-chart-bar"></i> Analytics & Reports</h2>
+                    <div class="analytics-grid">
+                        <div class="analytics-card">
+                            <h3>Classes per Teacher</h3>
+                            <div id="teacherStats" class="stats-list">
+                                <p class="empty-message">No data available</p>
+                            </div>
+                        </div>
+                        <div class="analytics-card">
+                            <h3>Room Utilization</h3>
+                            <div id="roomStats" class="stats-list">
+                                <p class="empty-message">No data available</p>
+                            </div>
+                        </div>
+                        <div class="analytics-card">
+                            <h3>Daily Distribution</h3>
+                            <div id="dayStats" class="stats-list">
+                                <p class="empty-message">No data available</p>
+                            </div>
+                        </div>
+                        <div class="analytics-card">
+                            <h3>Time Slot Usage</h3>
+                            <div id="timeStats" class="stats-list">
+                                <p class="empty-message">No data available</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <!-- Footer Controls -->
+        <div class="footer-controls">
+            <button id="clearBtn" class="btn-danger"><i class="fas fa-trash"></i> Clear All Data</button>
+            <button id="exportBtn" class="btn-success"><i class="fas fa-file-export"></i> Export Data</button>
+            <button id="importBtn" class="btn-success"><i class="fas fa-file-import"></i> Import Data</button>
+            <input type="file" id="importFile" accept=".json" style="display: none;">
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
